@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sticker-Album</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    .sticker {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .locked { background: #eee; }
+    .unlocked { background: #c5f7c5; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Mein Sticker-Album</h1>
+  <p>Scanne QR-Codes in der Stadt, um Sticker zu sammeln!</p>
+
+  <div class="grid" id="album"></div>
+
+  <script>
+    const albumDiv = document.getElementById("album");
+    const TOTAL_STICKERS = 20;
+
+    for (let i = 1; i <= TOTAL_STICKERS; i++) {
+      const collected = localStorage.getItem("sticker_" + i) === "1";
+      const div = document.createElement("div");
+      div.className = "sticker " + (collected ? "unlocked" : "locked");
+      div.textContent = collected ? "Sticker " + i + " ✅" : "Sticker " + i + " ❌";
+      albumDiv.appendChild(div);
+    }
+  </script>
+</body>
+</html>
